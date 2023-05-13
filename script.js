@@ -41,23 +41,17 @@ function drawChart() {
         height: 500,
         vAxis: {
             title: '',
+            format: '$#,##0.00',
         },
         hAxis: {
             title: 'Names',
         },
         legend: 'none',
-
+        series: {
+            0: { color: 'red' },
+            1: { color: 'green' },
+        },
     };
-
-    if (salaryCheckbox.checked && moneyCheckbox.checked) {
-        options.vAxis.format = '$#,##0.00';
-    } else if (salaryCheckbox.checked) {
-        options.vAxis.title = 'Salary';
-        options.vAxis.format = '$#,##0.00';
-    } else if (moneyCheckbox.checked) {
-        options.vAxis.title = 'Money';
-        options.vAxis.format = '$#,##0.00';
-    }
 
     const chart = new google.visualization.LineChart(document.getElementById('chart'));
 
@@ -68,13 +62,14 @@ function drawChart() {
         dataTableAge.addColumn('string', 'name');
         dataTableAge.addColumn('number', 'salary');
         dataTableAge.addRows(dataSalary);
+        options.vAxis.title = 'Salary';
         chart.draw(dataTableAge, options);
-
     } else if (moneyCheckbox.checked) {
         const dataTableMoney = new google.visualization.DataTable();
         dataTableMoney.addColumn('string', 'name');
         dataTableMoney.addColumn('number', 'money');
         dataTableMoney.addRows(dataMoney);
+        options.vAxis.title = 'Money';
         chart.draw(dataTableMoney, options);
     }
 }
